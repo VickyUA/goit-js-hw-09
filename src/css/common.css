@@ -30,5 +30,16 @@ img {
 .field {
   display: flex;
   flex-direction: column;
-  
-}
+  }
+
+  .value {
+    font-size: 25px;
+    text-align: center;
+    color: rgb(158, 13, 163);
+    font-weight: 600;
+  }
+
+  .label {
+    color: rgb(28, 148, 74);
+    font-weight: 500;
+  }

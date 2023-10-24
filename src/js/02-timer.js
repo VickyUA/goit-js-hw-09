@@ -35,12 +35,19 @@ const fp = flatpickr("#datetime-picker", {
                 const id = setInterval(() => {
                     ms -= 1000;
                     const leftTime = convertMs(ms);
-                    console.log(leftTime);
                     daysTimer.textContent = leftTime.days;
                     hoursTimer.textContent = leftTime.hours;
                     minutesTimer.textContent = leftTime.minutes;
                     secondsTimer.textContent = leftTime.seconds;
                 }, 1000);
+
+                setTimeout(() => {
+                    clearInterval(id);
+                    daysTimer.textContent = '00';
+                    hoursTimer.textContent = '00';
+                    minutesTimer.textContent = '00';
+                    secondsTimer.textContent = '00';
+                }, timeDiff);
 
             } )
         };
