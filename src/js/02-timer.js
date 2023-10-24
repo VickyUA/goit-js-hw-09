@@ -35,10 +35,14 @@ const fp = flatpickr("#datetime-picker", {
                 const id = setInterval(() => {
                     ms -= 1000;
                     const leftTime = convertMs(ms);
-                    daysTimer.textContent = leftTime.days;
-                    hoursTimer.textContent = leftTime.hours;
-                    minutesTimer.textContent = leftTime.minutes;
-                    secondsTimer.textContent = leftTime.seconds;
+
+                    daysTimer.textContent = addLeadingZero(leftTime.days, 2);
+
+                    hoursTimer.textContent = addLeadingZero(leftTime.hours, 2);
+
+                    minutesTimer.textContent = addLeadingZero(leftTime.minutes, 2);
+
+                    secondsTimer.textContent = addLeadingZero(leftTime.seconds, 2);
                 }, 1000);
 
                 setTimeout(() => {
@@ -48,13 +52,17 @@ const fp = flatpickr("#datetime-picker", {
                     minutesTimer.textContent = '00';
                     secondsTimer.textContent = '00';
                 }, timeDiff);
-
             } )
         };
       
     },
 }); 
 
+
+
+function addLeadingZero(num, targetLength) {
+  return num.toString().padStart(targetLength, "0");
+}
 
 function convertMs(ms) {
   const second = 1000;
