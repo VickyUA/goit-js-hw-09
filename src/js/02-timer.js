@@ -29,6 +29,7 @@ const fp = flatpickr("#datetime-picker", {
         } else {
             startBtn.disabled = false;
             startBtn.addEventListener('click', () => {
+                startBtn.disabled = true;
 
                 let ms = timeDiff;
                 const id = setInterval(() => {
@@ -39,7 +40,6 @@ const fp = flatpickr("#datetime-picker", {
                     hoursTimer.textContent = leftTime.hours;
                     minutesTimer.textContent = leftTime.minutes;
                     secondsTimer.textContent = leftTime.seconds;
-                    
                 }, 1000);
 
             } )

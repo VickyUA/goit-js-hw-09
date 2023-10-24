@@ -16,3 +16,19 @@ img {
   display: block;
   max-width: 100%;
 }
+
+#data-start {
+  width: 70px;
+  background-color: aquamarine;
+}
+
+.timer {
+  display: flex;
+  gap: 8px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  
+}
