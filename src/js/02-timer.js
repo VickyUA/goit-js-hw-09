@@ -1,5 +1,6 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import Notiflix from 'notiflix';
 
 const startBtn = document.querySelector('[data-start]');
 const daysTimer = document.querySelector('[data-days]');
@@ -16,16 +17,16 @@ const fp = flatpickr("#datetime-picker", {
     defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {
-        console.log('Selected date:', selectedDates[0]);
-
         const date = new Date();
-        console.log('Date now:', date);
         const selectedDate = selectedDates[0];
         const timeDiff = selectedDate.getTime() - date.getTime();
-        console.log('Time difference:', timeDiff);
 
         if (timeDiff < 0) {
-            window.alert("Please choose a date in the future");
+            Notiflix.Notify.failure('Please choose a date in the future',
+                {
+                    timeout: 4000,
+                },
+            );
         } else {
             startBtn.disabled = false;
             startBtn.addEventListener('click', () => {
@@ -37,11 +38,8 @@ const fp = flatpickr("#datetime-picker", {
                     const leftTime = convertMs(ms);
 
                     daysTimer.textContent = addLeadingZero(leftTime.days, 2);
-
                     hoursTimer.textContent = addLeadingZero(leftTime.hours, 2);
-
                     minutesTimer.textContent = addLeadingZero(leftTime.minutes, 2);
-
                     secondsTimer.textContent = addLeadingZero(leftTime.seconds, 2);
                 }, 1000);
 
@@ -57,8 +55,6 @@ const fp = flatpickr("#datetime-picker", {
       
     },
 }); 
-
-
 
 function addLeadingZero(num, targetLength) {
   return num.toString().padStart(targetLength, "0");
