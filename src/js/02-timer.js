@@ -17,11 +17,12 @@ const fp = flatpickr("#datetime-picker", {
     defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {
-        const date = new Date();
+        const date = Date.now();
         const selectedDate = selectedDates[0];
-        const timeDiff = selectedDate.getTime() - date.getTime();
+        const timeDiff = selectedDate.getTime() - date;
 
         if (timeDiff < 0) {
+            startBtn.disabled = true;
             Notiflix.Notify.failure('Please choose a date in the future',
                 {
                     timeout: 4000,
@@ -29,30 +30,26 @@ const fp = flatpickr("#datetime-picker", {
             );
         } else {
             startBtn.disabled = false;
-            startBtn.addEventListener('click', () => {
-                startBtn.disabled = true;
-
-                let ms = timeDiff;
-                const id = setInterval(() => {
-                    ms -= 1000;
-                    const leftTime = convertMs(ms);
-
-                    daysTimer.textContent = addLeadingZero(leftTime.days, 2);
-                    hoursTimer.textContent = addLeadingZero(leftTime.hours, 2);
-                    minutesTimer.textContent = addLeadingZero(leftTime.minutes, 2);
-                    secondsTimer.textContent = addLeadingZero(leftTime.seconds, 2);
-                }, 1000);
-
-                setTimeout(() => {
-                    clearInterval(id);
-                    daysTimer.textContent = '00';
-                    hoursTimer.textContent = '00';
-                    minutesTimer.textContent = '00';
-                    secondsTimer.textContent = '00';
-                }, timeDiff);
-            } )
         };
-      
+        
+        startBtn.addEventListener('click', () => {
+            startBtn.disabled = true;
+
+            let ms = timeDiff;
+            const id = setInterval(() => {
+                ms -= 1000;
+                const leftTime = convertMs(ms);
+
+                daysTimer.textContent = addLeadingZero(leftTime.days, 2);
+                hoursTimer.textContent = addLeadingZero(leftTime.hours, 2);
+                minutesTimer.textContent = addLeadingZero(leftTime.minutes, 2);
+                secondsTimer.textContent = addLeadingZero(leftTime.seconds, 2);
+            }, 1000);
+
+            setTimeout(() => {
+                clearInterval(id);
+             }, timeDiff);
+        });
     },
 }); 
 
